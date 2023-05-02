@@ -5,7 +5,7 @@ import Hands from "./components/Hands";
 
 function App() {
   return (
-    <div className="App bg-dark-brown overscroll-none sticky top-0">
+    <div className="App bg-dark-brown overflow-hidden">
       <h1 className="text-3xl text-light-pink font-comfortaa">Chopsticks</h1>
       <Hands />
     </div>

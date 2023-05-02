@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../App.css";
 import WHand0 from "./assets/imgs/Hands/W0.svg";
 import WHand1 from "./assets/imgs/Hands/W1.svg";
 import WHand2 from "./assets/imgs/Hands/W2.svg";
@@ -13,58 +14,98 @@ import BHand4 from "./assets/imgs/Hands/B4.svg";
 import BHand5 from "./assets/imgs/Hands/B5.svg";
 
 const Hands = () => {
-  const [wImgSrc, setWImgSrc] = useState(WHand0);
-  const [bImgSrc, setBImgSrc] = useState(BHand0);
-  const [wCount, setWCount] = useState(1);
-  const [bCount, setBCount] = useState(1);
+  const [rBOpacity, setRBOpacity] = useState(false);
+  const [lBOpacity, setLBOpacity] = useState(false);
+  const [rWImgSrc, setRWImgSrc] = useState(WHand1);
+  const [lWImgSrc, setLWImgSrc] = useState(WHand1);
+  const [rBImgSrc, setRBImgSrc] = useState(BHand1);
+  const [lBImgSrc, setLBImgSrc] = useState(BHand1);
+  const [rwCount, setRWCount] = useState(1);
+  const [lwCount, setLWCount] = useState(1);
+  const [rBCount, setRBCount] = useState(1);
+  const [lBCount, setLBCount] = useState(1);
   const wImgSrcArray = [WHand0, WHand1, WHand2, WHand3, WHand4, WHand5];
   const bImgSrcArray = [BHand0, BHand1, BHand2, BHand3, BHand4, BHand5];
 
-  const handleWClick = () => {
-    setWImgSrc(wImgSrcArray[wCount]);
-    if (wCount < 5) {
-      setWCount(wCount + 1);
+  const handleRWClick = () => {
+    setRWImgSrc(wImgSrcArray[rwCount]);
+    if (rwCount < 5) {
+      setRWCount(rwCount + 1);
     } else {
-      setWCount(0);
+      setRWCount(0);
     }
   };
 
-  const handleBClick = () => {
-    setBImgSrc(bImgSrcArray[bCount]);
-    if (bCount < 5) {
-      setBCount(bCount + 1);
+  const handleLWClick = () => {
+    setLWImgSrc(wImgSrcArray[lwCount]);
+    if (lwCount < 5) {
+      setLWCount(lwCount + 1);
     } else {
-      setBCount(0);
+      setLWCount(0);
     }
+  };
+
+  // const handleRBClick = () => {
+  //   setRBImgSrc(bImgSrcArray[rBCount]);
+  //   if (rBCount < 5) {
+  //     setRBCount(rBCount + 1);
+  //   } else {
+  //     setRBCount(0);
+  //   }
+  // };
+
+  // const handleLBClick = () => {
+  //   setLBImgSrc(bImgSrcArray[lBCount]);
+  //   if (lBCount < 5) {
+  //     setLBCount(lBCount + 1);
+  //   } else {
+  //     setLBCount(0);
+  //   }
+  // };
+
+  const handleRBClick = () => {
+    setRBOpacity(!rBOpacity);
+    rBOpacity ? setLBOpacity(true) : setLBOpacity(false);
+  };
+
+  const handleLBClick = () => {
+    setLBOpacity(!lBOpacity);
+    lBOpacity ? setRBOpacity(true) : setRBOpacity(false);
   };
 
   return (
-    <div>
-      <div className="bg-dark-brown h-[50vh]">
-        <button onClick={handleWClick}>
+    <div className="">
+      <div className="bg-dark-brown h-1/2">
+        <button onClick={handleRWClick}>
           <img
             className="object-none h-48 w-96 -scale-y-100"
             alt="Hand"
-            src={wImgSrc}
+            src={rWImgSrc}
           />
         </button>
-        <button onClick={handleWClick}>
+        <button onClick={handleLWClick}>
           <img
             className="object-none h-48 w-96 transform -scale-100"
             alt="Hand"
-            src={wImgSrc}
+            src={lWImgSrc}
           />
         </button>
       </div>
-      <div className="bg-light-pink h-[50vh]">
-        <button onClick={handleBClick}>
-          <img className="object-none h-48 w-96" alt="Hand" src={bImgSrc} />
-        </button>
-        <button onClick={handleBClick}>
+      <div className="bg-light-pink h-1/2">
+        <button onClick={handleLBClick}>
           <img
-            className="object-none h-48 w-96 transform -scale-x-100"
+            className={`object-none h-48 w-96 ${lBOpacity ? "opacity-30" : ""}`}
             alt="Hand"
-            src={bImgSrc}
+            src={lBImgSrc}
+          />
+        </button>
+        <button onClick={handleRBClick}>
+          <img
+            className={`object-none h-48 w-96 transform -scale-x-100 ${
+              rBOpacity ? "opacity-30" : ""
+            }`}
+            alt="Hand"
+            src={rBImgSrc}
           />
         </button>
       </div>
