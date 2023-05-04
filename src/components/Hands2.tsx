@@ -60,9 +60,9 @@ const Hands = () => {
 
   return (
     <div className="mt-5 max-w-md">
-      <p className="h-7 text-m text-light-pink font-comfortaa mt-5">
+      {/* <p className="h-7 text-m text-light-pink font-comfortaa mt-5">
         {!turnBool || gameOver ? "" : "White Turn"}
-      </p>
+      </p> */}
       <button
         onClick={handleWhiteClick}
         className={`mt-3 font-bold py-2 px-4 rounded font-comfortaa 
@@ -73,7 +73,7 @@ const Hands = () => {
         }`}
         disabled={!turnBool}
       >
-        Initiate Turn
+        White Turn
       </button>
       <div className="grid grid-cols-2 row bg-dark-brown h-1/2">
         <img
@@ -130,13 +130,13 @@ const Hands = () => {
         }`}
         disabled={turnBool}
       >
-        Initiate Turn
+        Black Turn
       </button>
-      <div>
+      {/* <div>
         <p className="h-7 text-m text-light-pink font-comfortaa mt-5">
           {turnBool || gameOver ? "" : "Black Turn"}
         </p>{" "}
-      </div>
+      </div> */}
     </div>
   );
 };
