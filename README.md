@@ -8,4 +8,4 @@ This version of Chopsticks utilizes an algorithm to automatically determine move
 React, Tailwind CSS, Node, Firebase
 
 ## Game Demo
-https://user-images.githubusercontent.com/95937955/236284139-2477ef5d-fb4c-479a-ad0a-c74063084745.mov
+https://user-images.githubusercontent.com/95937955/236295846-0d5349d8-846f-424f-92eb-4d087f13c3df.mov
