@@ -18,6 +18,8 @@ import {
   blackTurn,
   turnObject,
   gameOver,
+  whiteTurns,
+  blackTurns,
 } from "./utils/game-logic.js";
 
 const Hands = () => {
@@ -27,30 +29,45 @@ const Hands = () => {
   const [wRImageSrc, setWRImageSrc] = useState(1);
   const [bLImageSrc, setBLImageSrc] = useState(1);
   const [bRImageSrc, setBRImageSrc] = useState(1);
+  const [turnBool, setTurnBool] = useState(true);
+  console.log(gameOver);
 
   const handleWhiteClick = () => {
     whiteTurn();
+    console.log(whiteTurns[whiteTurns.length - 1]);
     console.log(turnObject);
     setWLImageSrc(turnObject.whiteLeft);
     setWRImageSrc(turnObject.whiteRight);
     setBLImageSrc(turnObject.blackLeft);
     setBRImageSrc(turnObject.blackRight);
+    setTurnBool(!turnBool);
   };
 
   const handleBlackClick = () => {
     blackTurn();
+    console.log(blackTurns[blackTurns.length - 1]);
     console.log(turnObject);
     setWLImageSrc(turnObject.whiteLeft);
     setWRImageSrc(turnObject.whiteRight);
     setBLImageSrc(turnObject.blackLeft);
     setBRImageSrc(turnObject.blackRight);
+    setTurnBool(!turnBool);
   };
 
   return (
     <div className="mt-5 max-w-md">
+      <p className="h-7 text-m text-light-pink font-comfortaa mt-5">
+        {!turnBool || gameOver ? "" : "White Turn"}
+      </p>
       <button
         onClick={handleWhiteClick}
-        className="mt-3 bg-light-pink hover:bg-blue-500 text-dark-brown font-bold py-2 px-4 rounded"
+        className={`mt-3 font-bold py-2 px-4 rounded font-comfortaa 
+        ${
+          turnBool && !gameOver
+            ? "bg-light-pink hover:bg-purple-500 text-dark-brown"
+            : "opacity-25 bg-light-pink text-dark-brown cursor-none"
+        }`}
+        disabled={!turnBool}
       >
         Initiate Turn
       </button>
@@ -66,6 +83,18 @@ const Hands = () => {
           src={wImgSrcArray[wRImageSrc]}
         />
       </div>
+      <p className="h-10 text-m text-light-pink font-comfortaa mt-5">
+        {whiteTurns.length > 0 && !turnBool && !gameOver
+          ? `White ${whiteTurns[whiteTurns.length - 1]}`
+          : blackTurns.length > 0 && turnBool && !gameOver
+          ? `Black ${blackTurns[blackTurns.length - 1]}`
+          : whiteTurns.length == 0 && blackTurns.length == 0
+          ? ""
+          : "GAME OVER"}
+      </p>
+      {/* <p className="h-10 text-m text-light-pink font-comfortaa mt-5">
+        {gameOver ? "GAME OVER" : ""}
+      </p> */}
       <div className="grid grid-cols-2 row bg-light-pink h-1/2">
         <img
           className={`object-none h-48 w-96`}
@@ -80,12 +109,19 @@ const Hands = () => {
       </div>
       <button
         onClick={handleBlackClick}
-        className="mt-3 bg-light-pink hover:bg-purple-500 text-dark-brown font-bold py-2 px-4 rounded"
+        className={`mt-3 font-bold py-2 px-4 rounded font-comfortaa ${
+          !turnBool && !gameOver
+            ? "bg-light-pink hover:bg-purple-500 text-dark-brown"
+            : "opacity-25 bg-light-pink text-dark-brown cursor-none"
+        }`}
+        disabled={turnBool}
       >
         Initiate Turn
       </button>
       <div>
-        <p className="text-3xl text-light-pink font-comfortaa mt-5"></p>
+        <p className="h-7 text-m text-light-pink font-comfortaa mt-5">
+          {turnBool || gameOver ? "" : "Black Turn"}
+        </p>{" "}
       </div>
     </div>
   );

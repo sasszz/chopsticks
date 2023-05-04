@@ -8,8 +8,8 @@ let whiteRight = 1,
   blackRight = 1,
   blackLeft = 1;
 
-let whiteTurns = [];
-let blackTurns = [];
+export let whiteTurns = [];
+export let blackTurns = [];
 export let turnObject = {
   whiteRight: 1,
   whiteLeft: 1,
@@ -150,7 +150,7 @@ export const whiteTurn = () => {
 
   if (
     (turnObject.whiteLeft == 0 && turnObject.whiteRight == 0) ||
-    (turnObject.blackLeft == 0 && turnObject.blackRight)
+    (turnObject.blackLeft == 0 && turnObject.blackRight == 0)
   ) {
     gameOver = true;
   }
