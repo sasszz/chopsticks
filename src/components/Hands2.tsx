@@ -54,6 +54,10 @@ const Hands = () => {
     setTurnBool(!turnBool);
   };
 
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
   return (
     <div className="mt-5 max-w-md">
       <p className="h-7 text-m text-light-pink font-comfortaa mt-5">
@@ -83,19 +87,29 @@ const Hands = () => {
           src={wImgSrcArray[wRImageSrc]}
         />
       </div>
-      <p className="h-10 text-m text-light-pink font-comfortaa mt-5">
-        {whiteTurns.length > 0 && !turnBool && !gameOver
-          ? `White ${whiteTurns[whiteTurns.length - 1]}`
-          : blackTurns.length > 0 && turnBool && !gameOver
-          ? `Black ${blackTurns[blackTurns.length - 1]}`
-          : whiteTurns.length == 0 && blackTurns.length == 0
-          ? ""
-          : "GAME OVER"}
-      </p>
-      {/* <p className="h-10 text-m text-light-pink font-comfortaa mt-5">
-        {gameOver ? "GAME OVER" : ""}
-      </p> */}
-      <div className="grid grid-cols-2 row bg-light-pink h-1/2">
+
+      {gameOver ? (
+        <div className="h-15">
+          {/* <p className="text-m text-light-pink font-comfortaa mt-5">
+            GAME OVER
+          </p> */}
+          <button
+            className="bg-light-pink hover:bg-purple-500 text-dark-brown font-bold py-2 px-4 rounded font-comfortaa"
+            onClick={handleRefresh}
+          >
+            GAME OVER - Play Again?
+          </button>
+        </div>
+      ) : (
+        <p className="h-15 text-m text-light-pink font-comfortaa mt-5">
+          {whiteTurns.length > 0 && !turnBool && !gameOver
+            ? `White ${whiteTurns[whiteTurns.length - 1]}`
+            : blackTurns.length > 0 && turnBool && !gameOver
+            ? `Black ${blackTurns[blackTurns.length - 1]}`
+            : "Let's Begin!"}
+        </p>
+      )}
+      <div className="grid grid-cols-2 row h-1/2">
         <img
           className={`object-none h-48 w-96`}
           alt="Hand"
