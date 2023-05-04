@@ -40,7 +40,7 @@ export const whiteAttack = (blackHand, whiteHand) => {
   return blackHand;
 };
 
-export const blackAttack = (blackHand, whiteHand) => {
+export const blackAttack = (whiteHand, blackHand) => {
   console.log("Black Attack");
   whiteHand = whiteHand + blackHand;
   if (whiteHand >= 5) {
@@ -63,10 +63,6 @@ export const whiteSplit = () => {
     return whiteRight < whiteLeft
       ? whiteRight++ & whiteLeft--
       : whiteRight-- & whiteLeft++;
-  } else if (whiteLeft + whiteRight == 3) {
-    return Math.abs(whiteLeft - whiteRight) > 1
-      ? (whiteRight = 2) & (whiteLeft = 1)
-      : (whiteRight = 3) & (whiteLeft = 0);
   } else {
     return Math.abs(whiteLeft - whiteRight) > 1
       ? (whiteRight = 3) & (whiteLeft = 2)
@@ -81,10 +77,6 @@ export const blackSplit = () => {
     return blackRight == 2
       ? (blackRight = 1) & (blackLeft = 3)
       : (blackRight = 2) & (blackLeft = 2);
-  } else if (blackLeft + blackRight == 3) {
-    return Math.abs(blackLeft - blackRight) > 1
-      ? (blackRight = 2) & (blackLeft = 1)
-      : (blackRight = 3) & (blackLeft = 0);
   } else if ((blackLeft + blackRight) % 2 == 0) {
     // total number of fingers is even
     return blackRight < blackLeft
@@ -103,25 +95,35 @@ export const whiteTurn = () => {
 
   if (
     whiteLeft + whiteRight == 1 ||
+    whiteLeft + whiteRight == 2 ||
+    whiteLeft + whiteRight == 3 ||
     whiteLeft + whiteRight == 7 ||
     whiteLeft + whiteRight == 8
   ) {
     // User cannot split on these combinations of fingers
     whiteTurns.push("Attack");
-    blackRight != 0
-      ? (blackRight = whiteAttack(
-          blackRight,
-          whiteLeft != 0 ? whiteLeft : whiteRight
-        ))
-      : (blackLeft = whiteAttack(
-          blackLeft,
-          whiteLeft != 0 ? whiteLeft : whiteRight
-        ));
+    if (blackRight + whiteRight >= 5) {
+      blackRight = whiteAttack(blackRight, whiteRight);
+    } else if (blackRight + whiteLeft >= 5) {
+      blackRight = whiteAttack(blackRight, whiteLeft);
+    } else if (blackLeft + whiteLeft >= 5) {
+      blackLeft = whiteAttack(blackLeft, whiteLeft);
+    } else if (blackLeft + whiteRight >= 5) {
+      blackLeft = whiteAttack(blackLeft, whiteRight);
+    } else {
+      blackRight != 0
+        ? (blackRight = whiteAttack(
+            blackRight,
+            whiteLeft != 0 ? whiteLeft : whiteRight
+          ))
+        : (blackLeft = whiteAttack(
+            blackLeft,
+            whiteLeft != 0 ? whiteLeft : whiteRight
+          ));
+    }
   }
 
   if (
-    whiteLeft + whiteRight == 2 ||
-    whiteLeft + whiteRight == 3 ||
     whiteLeft + whiteRight == 4 ||
     whiteLeft + whiteRight == 5 ||
     whiteLeft + whiteRight == 6
@@ -132,21 +134,35 @@ export const whiteTurn = () => {
       whiteTurns[whiteTurns.length - 1] == "Split" ||
       whiteTurns.length == 0
     ) {
+      // blackRight + whiteRight >= 5 ||
+      // blackRight + whiteLeft >= 5 ||
+      // blackLeft + whiteLeft >= 5 ||
+      // blackLeft + whiteRight >= 5
       decisionVar = 0;
     } else {
       decisionVar = randomBool();
     }
     if (decisionVar == 0) {
       whiteTurns.push("Attack");
-      blackRight != 0
-        ? (blackRight = whiteAttack(
-            blackRight,
-            whiteLeft != 0 ? whiteLeft : whiteRight
-          ))
-        : (blackLeft = whiteAttack(
-            blackLeft,
-            whiteLeft != 0 ? whiteLeft : whiteRight
-          ));
+      if (blackRight + whiteRight >= 5) {
+        blackRight = whiteAttack(blackRight, whiteRight);
+      } else if (blackRight + whiteLeft >= 5) {
+        blackRight = whiteAttack(blackRight, whiteLeft);
+      } else if (blackLeft + whiteLeft >= 5) {
+        blackLeft = whiteAttack(blackLeft, whiteLeft);
+      } else if (blackLeft + whiteRight >= 5) {
+        blackLeft = whiteAttack(blackLeft, whiteRight);
+      } else {
+        blackRight != 0
+          ? (blackRight = whiteAttack(
+              blackRight,
+              whiteLeft != 0 ? whiteLeft : whiteRight
+            ))
+          : (blackLeft = whiteAttack(
+              blackLeft,
+              whiteLeft != 0 ? whiteLeft : whiteRight
+            ));
+      }
     } else {
       whiteTurns.push("Split");
       whiteSplit();
@@ -171,25 +187,35 @@ export const blackTurn = () => {
 
   if (
     blackLeft + blackRight == 1 ||
+    blackLeft + blackRight == 2 ||
+    blackLeft + blackRight == 3 ||
     blackLeft + blackRight == 7 ||
     blackLeft + blackRight == 8
   ) {
-    // User cannot split on these combinations of fingers
+    // User should not split on these combinations of fingers
     blackTurns.push("Attack");
-    whiteRight != 0
-      ? (whiteRight = blackAttack(
-          whiteRight,
-          blackLeft != 0 ? blackLeft : blackRight
-        ))
-      : (whiteLeft = blackAttack(
-          whiteLeft,
-          blackLeft != 0 ? blackLeft : blackRight
-        ));
+    if (whiteRight + blackRight >= 5) {
+      whiteRight = blackAttack(blackRight, whiteRight);
+    } else if (whiteLeft + blackRight >= 5) {
+      whiteLeft = blackAttack(whiteLeft, blackRight);
+    } else if (whiteLeft + blackLeft >= 5) {
+      whiteLeft = blackAttack(whiteLeft, blackLeft);
+    } else if (whiteRight + blackLeft >= 5) {
+      whiteRight = blackAttack(whiteRight, blackLeft);
+    } else {
+      whiteRight != 0
+        ? (whiteRight = blackAttack(
+            whiteRight,
+            blackLeft != 0 ? blackLeft : blackRight
+          ))
+        : (whiteLeft = blackAttack(
+            whiteLeft,
+            blackLeft != 0 ? blackLeft : blackRight
+          ));
+    }
   }
 
   if (
-    blackLeft + blackRight == 2 ||
-    blackLeft + blackRight == 3 ||
     blackLeft + blackRight == 4 ||
     blackLeft + blackRight == 5 ||
     blackLeft + blackRight == 6
@@ -206,15 +232,25 @@ export const blackTurn = () => {
     }
     if (decisionVar == 0) {
       blackTurns.push("Attack");
-      whiteRight != 0
-        ? (whiteRight = blackAttack(
-            whiteRight,
-            blackLeft != 0 ? blackLeft : blackRight
-          ))
-        : (whiteLeft = blackAttack(
-            whiteLeft,
-            blackLeft != 0 ? blackLeft : blackRight
-          ));
+      if (whiteRight + blackRight >= 5) {
+        whiteRight = blackAttack(blackRight, whiteRight);
+      } else if (whiteLeft + blackRight >= 5) {
+        whiteLeft = blackAttack(whiteLeft, blackRight);
+      } else if (whiteLeft + blackLeft >= 5) {
+        whiteLeft = blackAttack(whiteLeft, blackLeft);
+      } else if (whiteRight + blackLeft >= 5) {
+        whiteRight = blackAttack(whiteRight, blackLeft);
+      } else {
+        whiteRight != 0
+          ? (whiteRight = blackAttack(
+              whiteRight,
+              blackLeft != 0 ? blackLeft : blackRight
+            ))
+          : (whiteLeft = blackAttack(
+              whiteLeft,
+              blackLeft != 0 ? blackLeft : blackRight
+            ));
+      }
     } else {
       blackTurns.push("Split");
       blackSplit();
