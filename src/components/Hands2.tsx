@@ -97,7 +97,7 @@ const Hands = () => {
             className="bg-light-pink hover:bg-purple-500 text-dark-brown font-bold py-2 px-4 rounded font-comfortaa"
             onClick={handleRefresh}
           >
-            GAME OVER - Play Again?
+            {!turnBool ? "White won! " : "Black won!"} - Play Again?
           </button>
         </div>
       ) : (
