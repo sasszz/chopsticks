@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Hands from "./components/Hands";
-import Hands2 from "./components/Hands2";
+import Hands2 from "./components/Hands-Bots";
 
 function App() {
   return (
