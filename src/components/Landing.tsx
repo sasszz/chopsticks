@@ -15,26 +15,26 @@ const Landing = () => {
         </h1>
         <p className="text-light-pink italic font-comfortaa text-sm mt-5">
           Chopsticks is a two-player hand game that involves tapping and
-          exchanging the fingers of both hands to score points and ultimately
-          defeat the opponent. The game continues until one player has both
-          hands eliminated, making the other player the winner.
+          exchanging the fingers of both hands to score points. The game
+          continues until one player has both hands eliminated, making the other
+          player the winner.
         </p>
         <p className="text-light-pink italic font-comfortaa text-sm mt-5">
           Pick a game below to play!
         </p>
-        <div className="grid grid-rows-3 gap-4 align-center justify-center mt-5 p-4">
-          <a href="/game">
-            <button className="bg-light-pink hover:bg-purple-500 text-dark-brown font-bold py-2 px-4 rounded font-comfortaa">
+        <div className="border border-light-pink rounded grid grid-rows-3 gap-10 align-center justify-center mt-5 p-4 w-3/4">
+          <a href="/npc/npc">
+            <button className="w-48 bg-light-pink hover:bg-blue-500 text-dark-brown font-bold py-2 px-4 rounded font-comfortaa">
               NPC vs NPC
             </button>
           </a>{" "}
-          <a href="/game">
-            <button className="bg-light-pink hover:bg-purple-500 text-dark-brown font-bold py-2 px-4 rounded font-comfortaa">
+          <a href="/human/npc">
+            <button className="w-48 bg-light-pink hover:bg-purple-500 text-dark-brown font-bold py-2 px-4 rounded font-comfortaa">
               Human vs NPC
             </button>
           </a>{" "}
-          <a href="/game">
-            <button className="bg-light-pink hover:bg-purple-500 text-dark-brown font-bold py-2 px-4 rounded font-comfortaa">
+          <a href="/human/human">
+            <button className="w-48 bg-light-pink hover:bg-pink-500 text-dark-brown font-bold py-2 px-4 rounded font-comfortaa">
               Human vs Human
             </button>
           </a>{" "}

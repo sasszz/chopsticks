@@ -1,15 +1,27 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Hands2 from "./components/Hands-Bots";
+import NPCNPC from "./components/NPCNPC";
+import HumanNPC from "./components/HumanNPC";
+import HumanHuman from "./components/HumanHuman";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Landing from "./components/Landing";
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/game",
-      element: <Hands2 />,
+      path: "/npc/npc",
+      element: <NPCNPC />,
+      // errorElement: <NotFound />,
+    },
+    {
+      path: "/human/npc",
+      element: <HumanNPC />,
+      // errorElement: <NotFound />,
+    },
+    {
+      path: "/human/human",
+      element: <HumanHuman />,
       // errorElement: <NotFound />,
     },
     {

@@ -22,7 +22,7 @@ import {
   blackTurns,
 } from "./utils/game-logic.js";
 
-const Hands = () => {
+const HumanNPC = () => {
   const wImgSrcArray = [WHand0, WHand1, WHand2, WHand3, WHand4, WHand5];
   const bImgSrcArray = [BHand0, BHand1, BHand2, BHand3, BHand4, BHand5];
   const [wLImageSrc, setWLImageSrc] = useState(1);
@@ -30,7 +30,9 @@ const Hands = () => {
   const [bLImageSrc, setBLImageSrc] = useState(1);
   const [bRImageSrc, setBRImageSrc] = useState(1);
   const [turnBool, setTurnBool] = useState(true);
-  console.log(gameOver);
+  const [leftOpacity, setLeftOpacity] = useState<boolean>(false);
+  const [rightOpacity, setRightOpacity] = useState<boolean>(false);
+  // console.log(gameOver);
 
   const handleWhiteClick = () => {
     whiteTurn();
@@ -56,6 +58,16 @@ const Hands = () => {
 
   const handleRefresh = () => {
     window.location.reload();
+  };
+
+  const selectLeft = () => {
+    setRightOpacity(false);
+    setLeftOpacity(!leftOpacity);
+  };
+
+  const selectRight = () => {
+    setLeftOpacity(false);
+    setRightOpacity(!rightOpacity);
   };
 
   return (
@@ -103,16 +115,24 @@ const Hands = () => {
         </p>
       )}
       <div className="grid grid-cols-2 row h-1/2">
-        <img
-          className={`object-none h-48 w-96`}
-          alt="Hand"
-          src={bImgSrcArray[bLImageSrc]}
-        />
-        <img
-          className={`object-none h-48 w-96 transform -scale-x-100`}
-          alt="Hand"
-          src={bImgSrcArray[bRImageSrc]}
-        />
+        <button onClick={selectLeft}>
+          <img
+            className={` object-none h-48 w-96 ${
+              leftOpacity ? "opacity-25" : ""
+            }`}
+            alt="Hand"
+            src={bImgSrcArray[bLImageSrc]}
+          />
+        </button>
+        <button onClick={selectRight}>
+          <img
+            className={` object-none h-48 w-96 transform -scale-x-100 ${
+              rightOpacity ? "opacity-25" : ""
+            }`}
+            alt="Hand"
+            src={bImgSrcArray[bRImageSrc]}
+          />
+        </button>
       </div>
       <button
         onClick={handleBlackClick}
@@ -123,10 +143,10 @@ const Hands = () => {
         }`}
         disabled={turnBool}
       >
-        Black Turn
+        Your Turn
       </button>
     </div>
   );
 };
 
-export default Hands;
+export default HumanNPC;
