@@ -1,16 +1,26 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Hands from "./components/Hands";
 import Hands2 from "./components/Hands-Bots";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Landing from "./components/Landing";
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/game",
+      element: <Hands2 />,
+      // errorElement: <NotFound />,
+    },
+    {
+      path: "/",
+      element: <Landing />,
+      // errorElement: <NotFound />,
+    },
+  ]);
   return (
-    <div className="App overflow-hidden">
-      <h1 className="mt-5 text-3xl text-light-pink font-comfortaa">
-        Chopsticks
-      </h1>
-      <Hands2 />
+    <div className="App">
+      <RouterProvider router={router} />
     </div>
   );
 }

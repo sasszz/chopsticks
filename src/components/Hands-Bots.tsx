@@ -60,9 +60,6 @@ const Hands = () => {
 
   return (
     <div className="mt-5 max-w-md">
-      {/* <p className="h-7 text-m text-light-pink font-comfortaa mt-5">
-        {!turnBool || gameOver ? "" : "White Turn"}
-      </p> */}
       <button
         onClick={handleWhiteClick}
         className={`mt-3 font-bold py-2 px-4 rounded font-comfortaa 
@@ -87,12 +84,8 @@ const Hands = () => {
           src={wImgSrcArray[wRImageSrc]}
         />
       </div>
-
       {gameOver ? (
         <div className="h-15">
-          {/* <p className="text-m text-light-pink font-comfortaa mt-5">
-            GAME OVER
-          </p> */}
           <button
             className="bg-light-pink hover:bg-purple-500 text-dark-brown font-bold py-2 px-4 rounded font-comfortaa"
             onClick={handleRefresh}
@@ -132,11 +125,6 @@ const Hands = () => {
       >
         Black Turn
       </button>
-      {/* <div>
-        <p className="h-7 text-m text-light-pink font-comfortaa mt-5">
-          {turnBool || gameOver ? "" : "Black Turn"}
-        </p>{" "}
-      </div> */}
     </div>
   );
 };
