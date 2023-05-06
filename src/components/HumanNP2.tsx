@@ -20,6 +20,11 @@ import {
   gameOver,
   whiteTurns,
   blackTurns,
+  blackAttack,
+  blackRight,
+  blackLeft,
+  whiteRight,
+  whiteLeft,
 } from "./utils/game-logic.js";
 
 const HumanNPC = () => {
@@ -34,6 +39,7 @@ const HumanNPC = () => {
   const [bRightOpacity, setBRightOpacity] = useState<boolean>(false);
   const [wLeftOpacity, setWLeftOpacity] = useState<boolean>(false);
   const [wRightOpacity, setWRightOpacity] = useState<boolean>(false);
+  const [isAttacking, setIsAttacking] = useState<boolean>(false);
 
   const handleWhiteClick = () => {
     whiteTurn();
@@ -61,24 +67,63 @@ const HumanNPC = () => {
     window.location.reload();
   };
 
+  const selectAttack = () => {
+    setIsAttacking(true);
+  };
+
+  const selectSplit = () => {};
+
   const selectBLeft = () => {
     setBRightOpacity(false);
     setBLeftOpacity(!bLeftOpacity);
+    if (wLeftOpacity) {
+      console.log("attack");
+      blackAttack(blackRight, whiteLeft);
+      setIsAttacking(false);
+    }
+    if (wRightOpacity) {
+      console.log("attack");
+      blackAttack(blackRight, whiteRight);
+      setIsAttacking(false);
+    }
   };
 
   const selectBRight = () => {
     setBLeftOpacity(false);
     setBRightOpacity(!bRightOpacity);
+    if (wLeftOpacity) {
+      console.log("attack");
+      blackAttack(blackRight, whiteLeft);
+      setIsAttacking(false);
+    }
+    if (wRightOpacity) {
+      console.log("attack");
+      blackAttack(blackRight, whiteRight);
+      setIsAttacking(false);
+    }
   };
 
   const selectWLeft = () => {
     setWRightOpacity(false);
     setWLeftOpacity(!wLeftOpacity);
+    if (wLeftOpacity) {
+      console.log("attack");
+      blackAttack(blackRight, whiteLeft);
+      setIsAttacking(false);
+    }
+    if (wRightOpacity) {
+      console.log("attack");
+      blackAttack(blackRight, whiteRight);
+      setIsAttacking(false);
+    }
   };
 
   const selectWRight = () => {
-    setWLeftOpacity(false);
+    // setWLeftOpacity(false);
     setWRightOpacity(!wRightOpacity);
+    console.log(wRightOpacity);
+    blackAttack(blackRight, whiteRight);
+    setIsAttacking(false);
   };
 
   return (
@@ -96,7 +141,7 @@ const HumanNPC = () => {
         White Turn
       </button>
       <div className="grid grid-cols-2 row bg-dark-brown h-1/2">
-        <button onClick={selectWLeft}>
+        <button onClick={selectWLeft} disabled={!isAttacking}>
           <img
             className={` object-none h-48 w-96 -scale-y-100 ${
               wLeftOpacity ? "opacity-25" : ""
@@ -105,7 +150,7 @@ const HumanNPC = () => {
             src={wImgSrcArray[wLImageSrc]}
           />
         </button>
-        <button onClick={selectWRight}>
+        <button onClick={selectWRight} disabled={!isAttacking}>
           <img
             className={` object-none h-48 w-96 transform -scale-100 ${
               wRightOpacity ? "opacity-25" : ""
@@ -134,7 +179,7 @@ const HumanNPC = () => {
         </p>
       )}
       <div className="grid grid-cols-2 row h-1/2">
-        <button onClick={selectBLeft}>
+        <button onClick={selectBLeft} disabled={!isAttacking}>
           <img
             className={` object-none h-48 w-96 ${
               bLeftOpacity ? "opacity-25" : ""
@@ -143,7 +188,7 @@ const HumanNPC = () => {
             src={bImgSrcArray[bLImageSrc]}
           />
         </button>
-        <button onClick={selectBRight}>
+        <button onClick={selectBRight} disabled={!isAttacking}>
           <img
             className={` object-none h-48 w-96 transform -scale-x-100 ${
               bRightOpacity ? "opacity-25" : ""
@@ -153,17 +198,35 @@ const HumanNPC = () => {
           />
         </button>
       </div>
-      <button
-        onClick={handleBlackClick}
-        className={`mt-3 font-bold py-2 px-4 rounded font-comfortaa ${
-          !turnBool && !gameOver
-            ? "bg-light-pink hover:bg-purple-500 text-dark-brown"
-            : "opacity-25 bg-light-pink text-dark-brown cursor-none"
-        }`}
-        disabled={turnBool}
-      >
-        Your Turn
-      </button>
+      <div className="grid grid-cols-2 gap-4">
+        <button
+          onClick={selectAttack}
+          className={`mt-3 font-bold py-2 px-4 rounded font-comfortaa ${
+            !turnBool && !gameOver && !isAttacking
+              ? "bg-light-pink hover:bg-purple-500 text-dark-brown"
+              : "opacity-25 bg-light-pink text-dark-brown cursor-none"
+          }`}
+          disabled={turnBool || isAttacking}
+        >
+          Attack
+        </button>
+        <button
+          onClick={selectSplit}
+          className={`mt-3 font-bold py-2 px-4 rounded font-comfortaa ${
+            !turnBool && !gameOver
+              ? "bg-light-pink hover:bg-purple-500 text-dark-brown"
+              : "opacity-25 bg-light-pink text-dark-brown cursor-none"
+          }`}
+          disabled={turnBool}
+        >
+          Split
+        </button>
+      </div>
+      {isAttacking && (
+        <p className="text-m text-light-pink font-comfortaa mt-5">
+          Please make hand selection
+        </p>
+      )}
     </div>
   );
 };
