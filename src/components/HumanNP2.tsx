@@ -25,6 +25,7 @@ import {
   blackLeft,
   whiteRight,
   whiteLeft,
+  testObj
 } from "./utils/game-logic.js";
 
 const HumanNPC = () => {
@@ -74,55 +75,25 @@ const HumanNPC = () => {
   const selectSplit = () => {};
 
   const selectBLeft = () => {
-    setBRightOpacity(false);
-    setBLeftOpacity(!bLeftOpacity);
-    if (wLeftOpacity) {
-      console.log("attack");
-      blackAttack(blackRight, whiteLeft);
-      setIsAttacking(false);
-    }
-    if (wRightOpacity) {
-      console.log("attack");
-      blackAttack(blackRight, whiteRight);
-      setIsAttacking(false);
-    }
+    // setBRightOpacity(false);
+    // setBLeftOpacity(!bLeftOpacity);
+    // setIsAttacking(false);
+    console.log(turnObject);
   };
 
   const selectBRight = () => {
     setBLeftOpacity(false);
     setBRightOpacity(!bRightOpacity);
-    if (wLeftOpacity) {
-      console.log("attack");
-      blackAttack(blackRight, whiteLeft);
-      setIsAttacking(false);
-    }
-    if (wRightOpacity) {
-      console.log("attack");
-      blackAttack(blackRight, whiteRight);
-      setIsAttacking(false);
-    }
+    setIsAttacking(false);
   };
 
   const selectWLeft = () => {
     setWRightOpacity(false);
-    setWLeftOpacity(!wLeftOpacity);
-    if (wLeftOpacity) {
-      console.log("attack");
-      blackAttack(blackRight, whiteLeft);
-      setIsAttacking(false);
-    }
-    if (wRightOpacity) {
-      console.log("attack");
-      blackAttack(blackRight, whiteRight);
-      setIsAttacking(false);
-    }
+    setIsAttacking(false);
   };
 
   const selectWRight = () => {
-    // setWLeftOpacity(false);
     setWRightOpacity(!wRightOpacity);
-    console.log(wRightOpacity);
-    blackAttack(blackRight, whiteRight);
     setIsAttacking(false);
   };
 

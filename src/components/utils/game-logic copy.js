@@ -171,15 +171,11 @@ export const whiteTurn = () => {
   return turnObject;
 };
 
-export const blackTurn = () => {
-  console.log("Beginning of Black turn:");
+export let decisionVar;
 
-  if (
-    blackLeft + blackRight == 1 ||
-    blackLeft + blackRight == 7 ||
-    blackLeft + blackRight == 8
-  ) {
-    // User cannot split on these combinations of fingers
+export const blackTurn = (decisionVar) => {
+  console.log("Beginning of Black turn:");
+  if (decisionVar == 0) {
     blackTurns.push("Attack");
     whiteRight != 0
       ? (whiteRight = blackAttack(
@@ -190,40 +186,9 @@ export const blackTurn = () => {
           whiteLeft,
           blackLeft != 0 ? blackLeft : blackRight
         ));
-  }
-
-  if (
-    blackLeft + blackRight == 2 ||
-    blackLeft + blackRight == 3 ||
-    blackLeft + blackRight == 4 ||
-    blackLeft + blackRight == 5 ||
-    blackLeft + blackRight == 6
-  ) {
-    // User can split or attack on these combinations of fingers
-    let decisionVar;
-    if (
-      blackTurns[blackTurns.length - 1] == "Split" ||
-      whiteTurns.length == 0
-    ) {
-      decisionVar = 0;
-    } else {
-      decisionVar = randomBool();
-    }
-    if (decisionVar == 0) {
-      blackTurns.push("Attack");
-      whiteRight != 0
-        ? (whiteRight = blackAttack(
-            whiteRight,
-            blackLeft != 0 ? blackLeft : blackRight
-          ))
-        : (whiteLeft = blackAttack(
-            whiteLeft,
-            blackLeft != 0 ? blackLeft : blackRight
-          ));
-    } else {
-      blackTurns.push("Split");
-      blackSplit();
-    }
+  } else {
+    blackTurns.push("Split");
+    blackSplit();
   }
 
   console.log("End of Black turn:");
